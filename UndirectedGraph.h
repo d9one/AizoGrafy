@@ -2,6 +2,8 @@
 #define AIZOGRAFY_UNDIRECTEDGRAPH_H
 
 #include <vector>
+#include <list>
+#include <string>
 
 using namespace std;
 
@@ -9,19 +11,37 @@ class UndirectedGraph {
 public:
     int n, m;
     short int ** matrix;
-    vector<vector<pair<int,int>>> list;
+    list<pair<int, int>> *adj_list;
 
     // Konstruktor domyślny
-    UndirectedGraph();
+    UndirectedGraph(int n, int m);
+
+    // Konstruktor generatora
+    UndirectedGraph(int n, double density);
 
     // Metoda do inicjalizacji macierzy
-    void initializeMatrix(int n, int m);
+    void initializeMatrix();
 
     // Metoda do inicjalizacji listy
-    void initializeList(int m);
+    void initializeList();
 
     // Metoda dodajaca do listy
-    void addList(int v1, int v2, int weight);
+    void addList(int v1, int v2, int weight=1);
+
+    // Metoda dodajaca do macierzy incydencji
+    void addMatrix(int v, int position, int weight);
+
+    // Metoda wyswietlająca graf w postaci listy sąsiedztwa
+    void displayList();
+
+    // Metoda wyswietlajca graf w postaci macierzy incydentcji
+    void displayMatrix();
+
+    // Metoda wczytujaca graf z pliku
+    static UndirectedGraph loadFromFile(string filename);
+
+    // Metoda generujaca bazowe drzewo rozpinajace
+    void generateGraph();
 
     // Dekonstruktor
     ~UndirectedGraph();
