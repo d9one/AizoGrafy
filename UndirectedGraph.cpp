@@ -126,6 +126,50 @@ void UndirectedGraph::generateGraph(){
     }
 }
 
+void UndirectedGraph::generateGraph99() {
+    int toRemove = 0.99 * m;
+    int position = 0;
+    for(int i = 0; i< n; i++){
+        for(int j = 0; j< n; j++){
+            int weight = rand() % 10 + 1;
+            addList(i, j, weight);
+            addMatrix(i, position, weight);
+            addMatrix(j, position, weight);
+            position++;
+        }
+    }
+    // Usuwanie krawędzi
+    for (int i = 0; i < toRemove; i++) {
+        int randomEdge = rand() % position; // Losowanie krawędzi do usunięcia
+        int vertex1 = -1, vertex2 = -1;
+        // Znajdowanie wierzchołków, które są połączone przez wylosowaną krawędź
+        for (int j = 0; j < n; j++) {
+            if (matrix[j][randomEdge] != 0) {
+                if (vertex1 == -1) vertex1 = j;
+                else {
+                    vertex2 = j;
+                    break;
+                }
+            }
+        }
+        // Usuwanie krawędzi z listy sąsiedztwa
+        adj_list[vertex1].remove_if([vertex2](const pair<int, int>& edge) {
+            return edge.first == vertex2;
+        });
+        adj_list[vertex2].remove_if([vertex1](const pair<int, int>& edge) {
+            return edge.first == vertex1;
+        });
+        // Usuwanie krawędzi z macierzy incydencji
+        for (int j = 0; j < m; j++) {
+            if (matrix[vertex1][j] != 0 && matrix[vertex2][j] != 0) {
+                matrix[vertex1][j] = 0;
+                matrix[vertex2][j] = 0;
+                break;
+            }
+        }
+    }
+}
+
 UndirectedGraph::~UndirectedGraph(){
     if (matrix != nullptr) {
         for (int i = 0; i < n; i++) {

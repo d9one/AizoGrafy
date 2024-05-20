@@ -18,7 +18,7 @@ int main() {
 //    graph.addMatrix(1, 2, 3);
 //    graph.addMatrix(2, 3, 4);
     UndirectedGraph graph(16, 0.5);
-    graph.generateGraph();
+    graph.generateGraph99();
 
 
     graph.displayList();

@@ -43,6 +43,9 @@ public:
     // Metoda generujaca bazowe drzewo rozpinajace
     void generateGraph();
 
+    // Metoda generująca graf o gęstości 99%
+    void generateGraph99();
+
     // Dekonstruktor
     ~UndirectedGraph();
 
