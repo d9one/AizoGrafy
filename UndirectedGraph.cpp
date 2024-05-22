@@ -9,11 +9,13 @@ using namespace std;
 UndirectedGraph::UndirectedGraph(int n, int m) : n(n), m(m), adj_list(nullptr), matrix(nullptr) {
     initializeList();
     initializeMatrix();
+    initializeEdgeList();
 }
 
 UndirectedGraph::UndirectedGraph(int n, double density) : n(n), m( density * ((n *(n-1))/2)) {
     initializeList();
     initializeMatrix();
+    initializeEdgeList();
 }
 
 void UndirectedGraph::initializeMatrix(){
@@ -30,6 +32,13 @@ void UndirectedGraph::initializeMatrix(){
 
 void UndirectedGraph::initializeList(){
     adj_list = new list<pair<int, int>>[n];
+}
+
+void UndirectedGraph::initializeEdgeList(){
+    edgeList = new vector<pair<int, int>>*[m];
+    for (int i = 0; i < m; ++i) {
+        edgeList[i] = new vector<pair<int, int>>();
+    }
 }
 
 void UndirectedGraph::addList(int v1, int v2, int weight){
@@ -89,6 +98,7 @@ UndirectedGraph UndirectedGraph::loadFromFile(string filename){
         graph.addMatrix(v1, position, weight);
         graph.addMatrix(v2, position, weight);
         graph.addList(v1, v2, weight);
+        edgeList[position]->push_back(make_pair(position, position+1));
         position++;
     }
     file.close();
@@ -101,6 +111,7 @@ void UndirectedGraph::generateGraph(){
         addList(i, i+1, random);
         addMatrix(i, i, random);
         addMatrix(i+1, i, random);
+        edgeList[i]->push_back(make_pair(i, i+1));
     }
     int position = n;
     int counter = m -n;
@@ -120,6 +131,7 @@ void UndirectedGraph::generateGraph(){
             addList(random1, random2, weight);
             addMatrix(random1,position, weight);
             addMatrix(random2, position, weight);
+            edgeList[position]->push_back(make_pair(position, position+1));
             position++;
             counter--;
         }
@@ -135,39 +147,12 @@ void UndirectedGraph::generateGraph99() {
             addList(i, j, weight);
             addMatrix(i, position, weight);
             addMatrix(j, position, weight);
+            edgeList[position]->push_back(make_pair(position, position+1));
             position++;
         }
     }
-    // Usuwanie krawędzi
-    for (int i = 0; i < toRemove; i++) {
-        int randomEdge = rand() % position; // Losowanie krawędzi do usunięcia
-        int vertex1 = -1, vertex2 = -1;
-        // Znajdowanie wierzchołków, które są połączone przez wylosowaną krawędź
-        for (int j = 0; j < n; j++) {
-            if (matrix[j][randomEdge] != 0) {
-                if (vertex1 == -1) vertex1 = j;
-                else {
-                    vertex2 = j;
-                    break;
-                }
-            }
-        }
-        // Usuwanie krawędzi z listy sąsiedztwa
-        adj_list[vertex1].remove_if([vertex2](const pair<int, int>& edge) {
-            return edge.first == vertex2;
-        });
-        adj_list[vertex2].remove_if([vertex1](const pair<int, int>& edge) {
-            return edge.first == vertex1;
-        });
-        // Usuwanie krawędzi z macierzy incydencji
-        for (int j = 0; j < m; j++) {
-            if (matrix[vertex1][j] != 0 && matrix[vertex2][j] != 0) {
-                matrix[vertex1][j] = 0;
-                matrix[vertex2][j] = 0;
-                break;
-            }
-        }
-    }
+
+
 }
 
 UndirectedGraph::~UndirectedGraph(){
@@ -180,4 +165,8 @@ UndirectedGraph::~UndirectedGraph(){
     if(adj_list != nullptr){
         delete[] adj_list;
     }
+    for (int i = 0; i < m; ++i) {
+        delete edgeList[i];
+    }
+    delete[] edgeList;
 }

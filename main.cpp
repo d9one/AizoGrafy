@@ -20,6 +20,14 @@ int main() {
     UndirectedGraph graph(16, 0.5);
     graph.generateGraph99();
 
+    for (int i = 0; i < 16; ++i) {
+        cout << "Wierzchołek " << i << ":";
+        for (auto &edge : *UndirectedGraph::edgeList[i]) {
+            cout << " (" << edge.first << ", " << edge.second << ")";
+        }
+        cout << endl;
+    }
+
 
     graph.displayList();
     graph.displayMatrix();

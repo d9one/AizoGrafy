@@ -12,6 +12,7 @@ public:
     int n, m;
     short int ** matrix;
     list<pair<int, int>> *adj_list;
+    static vector<pair<int, int>> **edgeList;
 
     // Konstruktor domyślny
     UndirectedGraph(int n, int m);
@@ -24,6 +25,9 @@ public:
 
     // Metoda do inicjalizacji listy
     void initializeList();
+
+    // Metoda do inicjalizacji listy krawędzi
+    void initializeEdgeList();
 
     // Metoda dodajaca do listy
     void addList(int v1, int v2, int weight=1);
