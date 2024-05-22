@@ -9,13 +9,11 @@ using namespace std;
 UndirectedGraph::UndirectedGraph(int n, int m) : n(n), m(m), adj_list(nullptr), matrix(nullptr) {
     initializeList();
     initializeMatrix();
-    initializeEdgeList();
 }
 
 UndirectedGraph::UndirectedGraph(int n, double density) : n(n), m( density * ((n *(n-1))/2)) {
     initializeList();
     initializeMatrix();
-    initializeEdgeList();
 }
 
 void UndirectedGraph::initializeMatrix(){
@@ -32,13 +30,6 @@ void UndirectedGraph::initializeMatrix(){
 
 void UndirectedGraph::initializeList(){
     adj_list = new list<pair<int, int>>[n];
-}
-
-void UndirectedGraph::initializeEdgeList(){
-    edgeList = new vector<pair<int, int>>*[m];
-    for (int i = 0; i < m; ++i) {
-        edgeList[i] = new vector<pair<int, int>>();
-    }
 }
 
 void UndirectedGraph::addList(int v1, int v2, int weight){
@@ -98,7 +89,6 @@ UndirectedGraph UndirectedGraph::loadFromFile(string filename){
         graph.addMatrix(v1, position, weight);
         graph.addMatrix(v2, position, weight);
         graph.addList(v1, v2, weight);
-        edgeList[position]->push_back(make_pair(position, position+1));
         position++;
     }
     file.close();
@@ -111,7 +101,6 @@ void UndirectedGraph::generateGraph(){
         addList(i, i+1, random);
         addMatrix(i, i, random);
         addMatrix(i+1, i, random);
-        edgeList[i]->push_back(make_pair(i, i+1));
     }
     int position = n;
     int counter = m -n;
@@ -131,7 +120,6 @@ void UndirectedGraph::generateGraph(){
             addList(random1, random2, weight);
             addMatrix(random1,position, weight);
             addMatrix(random2, position, weight);
-            edgeList[position]->push_back(make_pair(position, position+1));
             position++;
             counter--;
         }
@@ -147,11 +135,9 @@ void UndirectedGraph::generateGraph99() {
             addList(i, j, weight);
             addMatrix(i, position, weight);
             addMatrix(j, position, weight);
-            edgeList[position]->push_back(make_pair(position, position+1));
             position++;
         }
     }
-
 
 }
 
@@ -165,8 +151,4 @@ UndirectedGraph::~UndirectedGraph(){
     if(adj_list != nullptr){
         delete[] adj_list;
     }
-    for (int i = 0; i < m; ++i) {
-        delete edgeList[i];
-    }
-    delete[] edgeList;
 }
