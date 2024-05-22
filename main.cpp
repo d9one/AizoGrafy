@@ -18,7 +18,7 @@ int main() {
 //    graph.addMatrix(1, 2, 3);
 //    graph.addMatrix(2, 3, 4);
     UndirectedGraph graph(16, 0.5);
-    graph.generateGraph99();
+    graph.generateGraph();
 
     for (int i = 0; i < 16; ++i) {
         cout << "Wierzchołek " << i << ":";
