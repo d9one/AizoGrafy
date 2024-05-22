@@ -3,17 +3,20 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "Edges.h"
 
 using namespace std;
 
-UndirectedGraph::UndirectedGraph(int n, int m) : n(n), m(m), adj_list(nullptr), matrix(nullptr) {
+UndirectedGraph::UndirectedGraph(int n, int m) : n(n), m(m), adj_list(nullptr), matrix(nullptr), edges() {
     initializeList();
     initializeMatrix();
+    edges.initilaizeEdges(m);
 }
 
-UndirectedGraph::UndirectedGraph(int n, double density) : n(n), m( density * ((n *(n-1))/2)) {
+UndirectedGraph::UndirectedGraph(int n, double density) : n(n), m( density * ((n *(n-1))/2)),adj_list(nullptr), matrix(nullptr), edges(){
     initializeList();
     initializeMatrix();
+    edges.initilaizeEdges(m);
 }
 
 void UndirectedGraph::initializeMatrix(){
@@ -40,6 +43,23 @@ void UndirectedGraph::addList(int v1, int v2, int weight){
 void UndirectedGraph::addMatrix(int v, int position, int weight){
     matrix[v][position] = weight;
 }
+
+void UndirectedGraph::removeList(int position) {
+    int v1 = edges.edgeList[position].front().first;
+    int v2 = edges.edgeList[position].front().second;
+
+    adj_list[v1].remove_if([v2](const pair<int, int>& p) { return p.first == v2; });
+    adj_list[v2].remove_if([v1](const pair<int, int>& p) { return p.first == v1; });
+}
+
+void UndirectedGraph::removeMatrix(int position) {
+    int v1 = edges.edgeList[position].front().first;
+    int v2 = edges.edgeList[position].front().second;
+
+    matrix[v1][position] = 0;
+    matrix[v2][position] = 0;
+}
+
 void UndirectedGraph::displayList(){
     cout << "Lista sasiedztwa:" << endl;
     for (int i = 0; i < n; ++i) {
@@ -81,6 +101,7 @@ UndirectedGraph UndirectedGraph::loadFromFile(string filename){
     iss >> n >> m;
     UndirectedGraph graph(n, m);
 
+
     string line;
     while(getline(file, line)){
         int v1, v2, weight;
@@ -89,6 +110,7 @@ UndirectedGraph UndirectedGraph::loadFromFile(string filename){
         graph.addMatrix(v1, position, weight);
         graph.addMatrix(v2, position, weight);
         graph.addList(v1, v2, weight);
+        graph.edges.addEdge(position, v1, v2);
         position++;
     }
     file.close();
@@ -101,9 +123,11 @@ void UndirectedGraph::generateGraph(){
         addList(i, i+1, random);
         addMatrix(i, i, random);
         addMatrix(i+1, i, random);
+        edges.addEdge(i, i, i+1);
+
     }
-    int position = n;
-    int counter = m -n;
+    int position = n-1;
+    int counter = m - n + 1;
     while(counter>0){
         int random1 = rand() % 10;
         int random2 = rand() % 10;
@@ -120,6 +144,7 @@ void UndirectedGraph::generateGraph(){
             addList(random1, random2, weight);
             addMatrix(random1,position, weight);
             addMatrix(random2, position, weight);
+            edges.addEdge(position, random1, random2);
             position++;
             counter--;
         }
@@ -127,15 +152,33 @@ void UndirectedGraph::generateGraph(){
 }
 
 void UndirectedGraph::generateGraph99() {
-    int toRemove = 0.99 * m;
+    int toRemove = 0.01 * m;
     int position = 0;
-    for(int i = 0; i< n; i++){
-        for(int j = 0; j< n; j++){
+    for(int i = 0; i< n-2; ++i){
+        for(int j = i+1; j< n; ++j){
+            if(position == m){
+                break;
+            }
             int weight = rand() % 10 + 1;
             addList(i, j, weight);
             addMatrix(i, position, weight);
             addMatrix(j, position, weight);
+            edges.addEdge(position, i, j);
+            cout << i << " " << j<<endl;
             position++;
+        }
+    }
+
+    for(int i = 0 ; i < toRemove; i++){
+        int remove = 30;
+//                rand() % position;
+        if(edges.edgeList[remove].front().first == -1){
+            i--;
+        }
+        else{
+            removeList(remove);
+            removeMatrix(remove);
+            edges.removeEdge(remove);
         }
     }
 

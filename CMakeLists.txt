@@ -3,4 +3,4 @@ project(AizoGrafy)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(AizoGrafy main.cpp UndirectedGraph.cpp UndirectedGraph.h Menu.cpp Menu.h)
+add_executable(AizoGrafy main.cpp UndirectedGraph.cpp UndirectedGraph.h Menu.cpp Menu.h Edges.cpp Edges.h Algorithm.cpp Algorithm.h)

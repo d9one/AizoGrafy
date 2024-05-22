@@ -67,6 +67,18 @@ build CMakeFiles/AizoGrafy.dir/Menu.cpp.obj: CXX_COMPILER__AizoGrafy_Debug C$:/U
   OBJECT_DIR = CMakeFiles\AizoGrafy.dir
   OBJECT_FILE_DIR = CMakeFiles\AizoGrafy.dir
 
+build CMakeFiles/AizoGrafy.dir/Edges.cpp.obj: CXX_COMPILER__AizoGrafy_Debug C$:/Users/jakub/CLionProjects/AizoGrafy/Edges.cpp || cmake_object_order_depends_target_AizoGrafy
+  DEP_FILE = CMakeFiles\AizoGrafy.dir\Edges.cpp.obj.d
+  FLAGS = -g -std=gnu++23
+  OBJECT_DIR = CMakeFiles\AizoGrafy.dir
+  OBJECT_FILE_DIR = CMakeFiles\AizoGrafy.dir
+
+build CMakeFiles/AizoGrafy.dir/Algorithm.cpp.obj: CXX_COMPILER__AizoGrafy_Debug C$:/Users/jakub/CLionProjects/AizoGrafy/Algorithm.cpp || cmake_object_order_depends_target_AizoGrafy
+  DEP_FILE = CMakeFiles\AizoGrafy.dir\Algorithm.cpp.obj.d
+  FLAGS = -g -std=gnu++23
+  OBJECT_DIR = CMakeFiles\AizoGrafy.dir
+  OBJECT_FILE_DIR = CMakeFiles\AizoGrafy.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target AizoGrafy
@@ -75,7 +87,7 @@ build CMakeFiles/AizoGrafy.dir/Menu.cpp.obj: CXX_COMPILER__AizoGrafy_Debug C$:/U
 #############################################
 # Link the executable AizoGrafy.exe
 
-build AizoGrafy.exe: CXX_EXECUTABLE_LINKER__AizoGrafy_Debug CMakeFiles/AizoGrafy.dir/main.cpp.obj CMakeFiles/AizoGrafy.dir/UndirectedGraph.cpp.obj CMakeFiles/AizoGrafy.dir/Menu.cpp.obj
+build AizoGrafy.exe: CXX_EXECUTABLE_LINKER__AizoGrafy_Debug CMakeFiles/AizoGrafy.dir/main.cpp.obj CMakeFiles/AizoGrafy.dir/UndirectedGraph.cpp.obj CMakeFiles/AizoGrafy.dir/Menu.cpp.obj CMakeFiles/AizoGrafy.dir/Edges.cpp.obj CMakeFiles/AizoGrafy.dir/Algorithm.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\AizoGrafy.dir
