@@ -8,13 +8,23 @@ public:
     UndirectedGraph graph;
 
     // Konstruktor
-    explicit Algorithm(UndirectedGraph graph);
+    Algorithm(UndirectedGraph &graph);
 
     // Metoda liczaca algorytmem Prima na liscie
-    list<pair<int, int>>* primList(list<pair<int, int>> *adj_list, int V);
+    int primList();
 
     // Metoda liczaca algorytmem Prima na macierzy
-    UndirectedGraph matrixPrim();
+    int matrixPrim();
+
+    // Metoda liczaca algorytmem Kruskala na liscie
+    int kruskList();
+
+    // Metoda liczaca algorytmem Kruskala na macierzy
+    int matrixKrusk();
+
+    // Dekonstruktor
+    ~Algorithm() = default;
+
 };
 
 

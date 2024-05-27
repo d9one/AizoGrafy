@@ -20,9 +20,9 @@ UndirectedGraph::UndirectedGraph(int n, double density) : n(n), m( density * ((n
 }
 
 void UndirectedGraph::initializeMatrix(){
-    matrix = new short int * [n];
+    matrix = new int * [n];
     for(int i=0; i<n; i++){
-        matrix[i] = new short int [m];
+        matrix[i] = new int [m];
     }
     for(int i=0; i<n; i++){
         for(int j=0; j<m; j++){
@@ -74,18 +74,16 @@ void UndirectedGraph::displayMatrix(){
     cout << "Macierz incydentcji:" << endl;
     cout << "   ";
     for(int j = 0; j < m; j++){
-//        cout << j << " ";
         printf("%2d ", j);
     }
     for(int i = 0; i < n; i++){
         cout << endl;
         printf("%2d ", i);
-//        cout << endl << i << "  ";
         for(int j = 0; j < m; j++){
             printf(" %d ", matrix[i][j]);
-//            cout << matrix[i][j] << " ";
         }
     }
+    cout << endl;
 }
 
 UndirectedGraph UndirectedGraph::loadFromFile(string filename){
@@ -119,7 +117,7 @@ UndirectedGraph UndirectedGraph::loadFromFile(string filename){
 
 void UndirectedGraph::generateGraph(){
     for(int i=0; i<n-1; i++){
-        int random = rand() % 10;
+        int random = rand() % 10 + 1;
         addList(i, i+1, random);
         addMatrix(i, i, random);
         addMatrix(i+1, i, random);
@@ -164,14 +162,12 @@ void UndirectedGraph::generateGraph99() {
             addMatrix(i, position, weight);
             addMatrix(j, position, weight);
             edges.addEdge(position, i, j);
-            cout << i << " " << j<<endl;
             position++;
         }
     }
 
     for(int i = 0 ; i < toRemove; i++){
-        int remove = 30;
-//                rand() % position;
+        int remove = rand() % position;
         if(edges.edgeList[remove].front().first == -1){
             i--;
         }
@@ -194,4 +190,5 @@ UndirectedGraph::~UndirectedGraph(){
     if(adj_list != nullptr){
         delete[] adj_list;
     }
+
 }

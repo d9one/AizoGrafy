@@ -24,6 +24,7 @@ public:
     // Metoda wyswietlajaca edges
     void displayEdges(int n, float density);
 
+    ~Edges() = default;
 
 };
 

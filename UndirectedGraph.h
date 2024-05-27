@@ -11,9 +11,11 @@ using namespace std;
 class UndirectedGraph {
 public:
     int n, m;
-    short int ** matrix;
+    int ** matrix;
     list<pair<int, int>> *adj_list;
     Edges edges;
+
+    UndirectedGraph() = default;
 
     // Konstruktor domyślny
     UndirectedGraph(int n, int m);
