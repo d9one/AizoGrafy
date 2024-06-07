@@ -1,4 +1,4 @@
-"C:\Program Files\JetBrains\CLion 2022.2.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2022.2.4/bin/ninja/win/ninja.exe" -G Ninja -S C:\Users\jakub\CLionProjects\AizoGrafy -B C:\Users\jakub\CLionProjects\AizoGrafy\cmake-build-debug
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/jakubwalica/Downloads/AizoGrafy -B /Users/jakubwalica/Downloads/AizoGrafy/cmake-build-debug
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/jakub/CLionProjects/AizoGrafy/cmake-build-debug
+-- Build files have been written to: /Users/jakubwalica/Downloads/AizoGrafy/cmake-build-debug

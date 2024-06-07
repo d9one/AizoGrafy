@@ -1,3 +1,3 @@
-C:/Users/jakub/CLionProjects/AizoGrafy/cmake-build-debug/CMakeFiles/AizoGrafy.dir
-C:/Users/jakub/CLionProjects/AizoGrafy/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/jakub/CLionProjects/AizoGrafy/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/jakubwalica/Downloads/AizoGrafy/cmake-build-debug/CMakeFiles/AizoGrafy.dir
+/Users/jakubwalica/Downloads/AizoGrafy/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/jakubwalica/Downloads/AizoGrafy/cmake-build-debug/CMakeFiles/rebuild_cache.dir
