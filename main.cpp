@@ -4,7 +4,6 @@
 
 
 using namespace std;
-namespace fs = filesystem;
 
 int main() {
     srand(time(nullptr));

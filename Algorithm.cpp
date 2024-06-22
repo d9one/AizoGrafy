@@ -1,6 +1,7 @@
 #include <queue>
 #include <iostream>
 #include "Algorithm.h"
+#include <algorithm>
 
 using namespace std;
 
