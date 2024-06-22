@@ -17,7 +17,7 @@ void Menu::menu() {
         cout << "Wybierz jedna z podanych opcji:\n";
         cout << " 1. Algorytm MST\n";
         cout << " 2. Algorytm najkrotszej sciezki\n";
-        cout << "-1. Wyjdz z programu\n";
+        cout << "-1. Wroc do wyboru trybu\n";
         cin >> type;
         switch (type) {
             case 1:
@@ -38,32 +38,37 @@ void Menu::menu() {
                         {
                             cout << "Podaj nazwe pliku:" << endl;
                             cin >> filename;
-                            filename = fs::current_path().string() + "//Files//" + filename;
-                            ifstream file(filename);
-                            if (!file.is_open()) {
-                                cerr << "Nie mozna otworzyc pliku " << filename << endl;
-                                throw runtime_error("Nie mozna otworzyc pliku");
-                            }
-                            string firstLine;
-                            int n1, m, position = 0;
-                            getline(file, firstLine);
-                            istringstream iss(firstLine);
-                            iss >> n1 >> m;
-                            graph = Graph(n1, m, 0);
-                            graph.initializeList();
-                            graph.initializeMatrix();
+                            string filepath = fs::current_path().string() + "/Files/" + filename;
+                            try {
+                                ifstream file(filepath);
+                                if (!file.is_open()) {
+                                    cerr << "Nie mozna otworzyc pliku " << filepath << endl;
+                                    throw runtime_error("Nie mozna otworzyc pliku");
+                                }
+                                string firstLine;
+                                int n1, m, position = 0;
+                                getline(file, firstLine);
+                                istringstream iss(firstLine);
+                                iss >> n1 >> m;
+                                graph = Graph(n1, m, 0);
+                                graph.initializeList();
+                                graph.initializeMatrix();
 
-                            string line;
-                            while (getline(file, line)) {
-                                int v1, v2, weight;
-                                istringstream iss2(line);
-                                iss2 >> v1 >> v2 >> weight;
-                                graph.addMatrix(v1, v2, position, weight);
-                                graph.addList(v1, v2, weight);
-                                graph.edges.addEdge(position, v1, v2);
-                                position++;
+                                string line;
+                                while (getline(file, line)) {
+                                    int v1, v2, weight;
+                                    istringstream iss2(line);
+                                    iss2 >> v1 >> v2 >> weight;
+                                    graph.addMatrix(v1, v2, position, weight);
+                                    graph.addList(v1, v2, weight);
+                                    graph.edges.addEdge(position, v1, v2);
+                                    position++;
+                                }
+                                file.close();
+
+                            } catch (const runtime_error& e) {
+                                cerr << "Wystapil blad: " << e.what() << endl;
                             }
-                            file.close();
                         }
                             break;
                         case 2:
@@ -141,39 +146,37 @@ void Menu::menu() {
                         {
                             cout << "Podaj nazwe pliku:" << endl;
                             cin >> filename;
-                            filename = fs::current_path().string() + "//Files//" + filename;
-                            ifstream file(filename);
+                            string filepath = fs::current_path().string() + "/Files/" + filename;
                             try {
+                                ifstream file(filepath);
                                 if (!file.is_open()) {
-                                    cerr << "Nie mozna otworzyc pliku " << filename << endl;
+                                    cerr << "Nie mozna otworzyc pliku " << filepath << endl;
                                     throw runtime_error("Nie mozna otworzyc pliku");
                                 }
-                            } catch (runtime_error& e) {
+                                string firstLine;
+                                int n1, m, position = 0;
+                                getline(file, firstLine);
+                                istringstream iss(firstLine);
+                                iss >> n1 >> m;
+                                graph = Graph(n1, m, 1);
+                                graph.initializeList();
+                                graph.initializeMatrix();
+
+                                string line;
+                                while (getline(file, line)) {
+                                    int v1, v2, weight;
+                                    istringstream iss2(line);
+                                    iss2 >> v1 >> v2 >> weight;
+                                    graph.addMatrix(v1, v2, position, weight);
+                                    graph.addList(v1, v2, weight);
+                                    graph.edges.addEdge(position, v1, v2);
+                                    position++;
+                                }
+                                file.close();
+
+                            } catch (const runtime_error& e) {
                                 cerr << "Wystapil blad: " << e.what() << endl;
                             }
-                            string firstLine;
-                            int n1, m, position = 0;
-                            getline(file, firstLine);
-                            istringstream iss(firstLine);
-                            iss >> n1 >> m;
-                            graph = Graph(n1, m, 1);
-                            graph.initializeList();
-                            graph.initializeMatrix();
-
-                            string line;
-                            while (getline(file, line)) {
-                                int v1, v2, weight;
-                                istringstream iss2(line);
-                                if (!(iss2 >> v1 >> v2 >> weight)) {
-                                    cerr << "Blad parsowania linii: " << line << endl;
-                                    continue;
-                                }
-                                graph.addMatrix(v1, v2, position, weight);
-                                graph.addList(v1, v2, weight);
-                                graph.edges.addEdge(position, v1, v2);
-                                position++;
-                            }
-                            file.close();
                         }
                             break;
                         case 2:

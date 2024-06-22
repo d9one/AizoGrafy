@@ -2,7 +2,6 @@
 #include <filesystem>
 #include <iostream>
 #include <fstream>
-#include <climits>
 
 using namespace std;
 namespace fs = filesystem;
@@ -26,7 +25,7 @@ void Simulation::simulation() {
         for (int i = 0; i < 50; i++) {
             Graph graph(x, 0);
             Algorithm algorithm(graph);
-            graph.generateGraph(0, 0.25, INT_MAX);
+            graph.generateGraph(0, 0.25, 100000);
 
             ofstream file;
             // Prim list
@@ -70,7 +69,7 @@ void Simulation::simulation() {
         for (int i = 0; i < 50; i++) {
             Graph graph(x, 0);
             Algorithm algorithm(graph);
-            graph.generateGraph(0, 0.5, INT_MAX);
+            graph.generateGraph(0, 0.5, 100000);
 
             ofstream file;
             // Prim list
@@ -114,7 +113,7 @@ void Simulation::simulation() {
         for (int i = 0; i < 50; i++) {
             Graph graph(x, 0);
             Algorithm algorithm(graph);
-            graph.generateGraph99(0, INT_MAX);
+            graph.generateGraph99(0, 100000);
 
             ofstream file;
             // Prim list
@@ -158,7 +157,7 @@ void Simulation::simulation() {
         for (int i = 0; i < 50; i++) {
             Graph graph(x, 1);
             Algorithm algorithm(graph);
-            graph.generateGraph(1, 0.25, INT_MAX);
+            graph.generateGraph(1, 0.25, 100000);
 
             int start, end;
             while (true) {
@@ -211,7 +210,7 @@ void Simulation::simulation() {
         for (int i = 0; i < 50; i++) {
             Graph graph(x, 1);
             Algorithm algorithm(graph);
-            graph.generateGraph(1, 0.5, INT_MAX);
+            graph.generateGraph(1, 0.5, 100000);
 
             int start, end;
             while (true) {
@@ -264,7 +263,7 @@ void Simulation::simulation() {
         for (int i = 0; i < 50; i++) {
             Graph graph(x, 1);
             Algorithm algorithm(graph);
-            graph.generateGraph99(1, INT_MAX);
+            graph.generateGraph99(1, 100000);
 
             int start, end;
             while (true) {

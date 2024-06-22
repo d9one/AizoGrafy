@@ -67,7 +67,7 @@ double Algorithm::primList() {
     // Pierwszy wierzcholek visited
     visited[v] = true;
 
-int last = v;
+    int last = v;
     // Algorytm prima
     for (int i = 0; i < graph.n-1; i++) {
         for (const auto& neighbor : graph.adj_list[last]) {
@@ -563,37 +563,37 @@ double Algorithm::bellmanFordMatrix(int start, int end) {
                 if(weight < 0){
                     weight = - weight;
                 }
-                    if (distances[u] != numeric_limits<int>::max() && distances[u] + weight < distances[v]) {
-                        distances[v] = distances[u] + weight;
-                        previous[v] = u;
-                    }
+                if (distances[u] != numeric_limits<int>::max() && distances[u] + weight < distances[v]) {
+                    distances[v] = distances[u] + weight;
+                    previous[v] = u;
+                }
             }
         }
     }
 
-        // Konstruowanie ścieżki do wierzchołka końcowego
-        vector<int> path;
-        for (int i = end; i != -1; i = previous[i]) {
-            path.push_back(i);
-        }
-        reverse(path.begin(), path.end());
+    // Konstruowanie ścieżki do wierzchołka końcowego
+    vector<int> path;
+    for (int i = end; i != -1; i = previous[i]) {
+        path.push_back(i);
+    }
+    reverse(path.begin(), path.end());
 
     auto end1 = chrono::high_resolution_clock::now();
     chrono::duration<double, micro> elapsed = end1 - start1;
 
-        // Wypisanie drogi i jej kosztu
-        if (distances[end] == numeric_limits<int>::max()) {
-            cout << "Brak sciezki z " << start << " do " << end << endl;
-        } else {
-            cout << "Sciezka z " << start << " do " << end << ": ";
-            for (size_t i = 0; i < path.size(); ++i) {
-                cout << path[i];
-                if (i < path.size() - 1) {
-                    cout << " -> ";
-                }
+    // Wypisanie drogi i jej kosztu
+    if (distances[end] == numeric_limits<int>::max()) {
+        cout << "Brak sciezki z " << start << " do " << end << endl;
+    } else {
+        cout << "Sciezka z " << start << " do " << end << ": ";
+        for (size_t i = 0; i < path.size(); ++i) {
+            cout << path[i];
+            if (i < path.size() - 1) {
+                cout << " -> ";
             }
-            cout << endl;
-            cout << "Koszt sciezki: " << distances[end] << endl;
         }
+        cout << endl;
+        cout << "Koszt sciezki: " << distances[end] << endl;
+    }
     return elapsed.count();
 }
